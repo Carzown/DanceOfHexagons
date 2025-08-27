@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Select Analysis</h2>
+<form method="post" action="/analyze">
+    <button name="analysis" value="voronoi">Voronoi Analysis</button>
+    <button name="analysis" value="delaunay">Delaunay Analysis</button>
+    <button name="analysis" value="optimization">Optimization</button>
+    <button name="analysis" value="stats">Statistical Analysis</button>
+</form>
+{% endblock %}
