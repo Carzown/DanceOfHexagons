@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dance of Hexagons</title>
+    <title>Dance of the Hexagons</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,11 +14,14 @@
             </div>
             <ul class="nav-menu">
                 <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="#geometry" class="nav-link">Geometry</a></li>
-                <li class="nav-item"><a href="#models" class="nav-link">Models</a></li>
-                <li class="nav-item"><a href="#data-testing" class="nav-link">Test Data</a></li>
-                <li class="nav-item"><a href="#research" class="nav-link">Research</a></li>
+                <li class="nav-item"><a href="#geometry" class="nav-link">Background</a></li>
+                <li class="nav-item"><a href="#methods" class="nav-link">Computational Methods</a></li>
             </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
     </nav>
 
@@ -26,46 +29,235 @@
         <section id="home" class="hero">
             <div class="hero-container">
                 <div class="hero-content">
-                    <h1 class="hero-title">Dance of Hexagons: Exploring the Hidden Geometry in Bee Communication
-                    </h1>
-                    <p class="hero-subtitle">
-                        Investigation on how the geometry of honeycomb cells influences the accuracy of waggle dance communication among bees
-                    </p>
+                    <h1 class="hero-title">Dance of the Hexagons</h1>
+                    <p class="hero-subtitle">A computational analysis of honeycomb geometry using modern computer vision and geometry algorithms</p>
+                    <div class="research-credit">
+                        <p><strong>Research by:</strong> Anne Kelly M. Mantaring</p>
+                        <p><strong>Adviser:</strong> Sir Wilbert C. Laylay</p>
+                        <p><strong>Institution:</strong> Bansud National High School, Regional Science High School for MIMAROPA</p>
+                    </div>
+                    <div class="hero-cta">
+                        <a href="#geometry" class="btn-primary">Explore Geometry</a>
+                        <a href="#methods" class="btn-secondary">View Methods</a>
+                    </div>
                 </div>
-                <div class="hero-image">
-                    <img src="hero_ image.jpg" alt="Honeycomb Image">
+                <div class="hero-visual">
+                    <img src="hero_ image.jpg" alt="Honeycomb research hero" class="hero-image"/>
+                </div>
+            </div>
+            <!-- Bee swarm: standardized simple sprite (rect body + left stinger), RTL auto-mirrored -->
+            <!-- LTR Bees -->
+            <div class="bee-wrapper" aria-hidden="true" style="top:110px; animation-duration:18s; animation-delay:0s;">
+                <svg class="bee-sprite" viewBox="0 0 16 12" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="wing" x="7" y="2" width="4" height="2"/>
+                    <rect class="wing" x="6" y="3" width="3" height="1"/>
+                    <rect class="yel" x="4" y="5" width="7" height="3"/>
+                    <rect class="blk" x="5" y="5" width="1" height="3"/>
+                    <rect class="blk" x="7" y="5" width="1" height="3"/>
+                    <rect class="blk" x="9" y="5" width="1" height="3"/>
+                    <polygon points="0,6 4,5.5 4,6.5" fill="#000"/>
+                </svg>
+            </div>
+            <div class="bee-wrapper" aria-hidden="true" style="top:170px; animation-duration:20s; animation-delay:1.2s;">
+                <svg class="bee-sprite" viewBox="0 0 16 12" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="wing" x="7" y="2" width="4" height="2"/>
+                    <rect class="wing" x="6" y="3" width="3" height="1"/>
+                    <rect class="yel" x="4" y="5" width="7" height="3"/>
+                    <rect class="blk" x="5" y="5" width="1" height="3"/>
+                    <rect class="blk" x="7" y="5" width="1" height="3"/>
+                    <rect class="blk" x="9" y="5" width="1" height="3"/>
+                    <polygon points="0,6 4,5.5 4,6.5" fill="#000"/>
+                </svg>
+            </div>
+            <div class="bee-wrapper" aria-hidden="true" style="top:230px; animation-duration:22s; animation-delay:2.4s;">
+                <svg class="bee-sprite" viewBox="0 0 16 12" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="wing" x="7" y="2" width="4" height="2"/>
+                    <rect class="wing" x="6" y="3" width="3" height="1"/>
+                    <rect class="yel" x="4" y="5" width="7" height="3"/>
+                    <rect class="blk" x="5" y="5" width="1" height="3"/>
+                    <rect class="blk" x="7" y="5" width="1" height="3"/>
+                    <rect class="blk" x="9" y="5" width="1" height="3"/>
+                    <polygon points="0,6 4,5.5 4,6.5" fill="#000"/>
+                </svg>
+            </div>
+            <!-- RTL Bees (auto-mirrored) -->
+            <div class="bee-wrapper bee-rtl" aria-hidden="true" style="top:140px; animation-duration:19s; animation-delay:0.6s;">
+                <svg class="bee-sprite" viewBox="0 0 16 12" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="wing" x="7" y="2" width="4" height="2"/>
+                    <rect class="wing" x="6" y="3" width="3" height="1"/>
+                    <rect class="yel" x="4" y="5" width="7" height="3"/>
+                    <rect class="blk" x="5" y="5" width="1" height="3"/>
+                    <rect class="blk" x="7" y="5" width="1" height="3"/>
+                    <rect class="blk" x="9" y="5" width="1" height="3"/>
+                    <polygon points="0,6 4,5.5 4,6.5" fill="#000"/>
+                </svg>
+            </div>
+            <div class="bee-wrapper bee-rtl" aria-hidden="true" style="top:200px; animation-duration:21s; animation-delay:1.8s;">
+                <svg class="bee-sprite" viewBox="0 0 16 12" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="wing" x="7" y="2" width="4" height="2"/>
+                    <rect class="wing" x="6" y="3" width="3" height="1"/>
+                    <rect class="yel" x="4" y="5" width="7" height="3"/>
+                    <rect class="blk" x="5" y="5" width="1" height="3"/>
+                    <rect class="blk" x="7" y="5" width="1" height="3"/>
+                    <rect class="blk" x="9" y="5" width="1" height="3"/>
+                    <polygon points="0,6 4,5.5 4,6.5" fill="#000"/>
+                </svg>
+            </div>
+            <div class="bee-wrapper bee-rtl" aria-hidden="true" style="top:280px; animation-duration:24s; animation-delay:3.0s;">
+                <svg class="bee-sprite" viewBox="0 0 16 12" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="wing" x="7" y="2" width="4" height="2"/>
+                    <rect class="wing" x="6" y="3" width="3" height="1"/>
+                    <rect class="yel" x="4" y="5" width="7" height="3"/>
+                    <rect class="blk" x="5" y="5" width="1" height="3"/>
+                    <rect class="blk" x="7" y="5" width="1" height="3"/>
+                    <rect class="blk" x="9" y="5" width="1" height="3"/>
+                    <polygon points="0,6 4,5.5 4,6.5" fill="#000"/>
+                </svg>
             </div>
         </section>
 
         <section id="geometry" class="section">
             <div class="container">
-                <h2 class="section-title">Geometry Analysis</h2>
+                <h2 class="section-title">Background of the Study</h2>
                 <div class="geometry-content">
                     <div class="geometry-text">
-                        <h4>Mathematical Properties</h4>
-                        <ul class="feature-list">
-                            <li></li>
-                        </ul>
+                        <p>Bees are critical pollinators—supporting ~90% of flowering plant species and about 75% of the world’s leading food crops—yet face mounting threats from habitat loss, pesticides, climate change, and invasive species. As highly social organisms, worker bees forage for nectar, pollen, water, and resin, which in turn sustain colony energy, nutrition, cooling, and antimicrobial defense.</p>
+                        <p>Bees communicate through the waggle dance: a precise figure‑eight performed on the vertical comb where waggle angle (relative to vertical/sun) encodes direction and waggle duration encodes distance. Despite this precision, hive structure and dance communication have often been studied separately. Potential irregularities in comb geometry—arising from stressors or artificial hive designs—may influence communication accuracy and forager recruitment.</p>
+                        <p>Using modern computational geometry and vision—Voronoi and Delaunay constructions and vector analysis—comb structure can be quantified (angles, spacing, alignment) and compared with behavior to reveal overlooked effects on colony performance and to inform applied beekeeping and crop pollination strategies.</p>
+                    </div>
+                </div>
+
+                <h2 class="section-title" style="margin-top: 60px;">Research Objectives</h2>
+                <div class="computational-methods">
+                    <p class="methods-intro">Main objective: develop and analyze a mathematical–computational model linking hive geometry and spatial layout to communication efficiency, stability, and overall colony organization.</p>
+                    <div class="method-grid">
+                        <div class="method-item">
+                            <h4>Geometric Patterns</h4>
+                            <p>Measure perimeter, cell‑angle uniformity/deviation, cell‑area uniformity, wall‑length variance, and alignment/arrangement.</p>
+                        </div>
+                        <div class="method-item">
+                            <h4>Structural Quality</h4>
+                            <p>Compare compactness, symmetry, and pattern consistency across regions of the comb.</p>
+                        </div>
+                        <div class="method-item">
+                            <h4>Spatial Efficiency</h4>
+                            <p>Evaluate resource‑use optimization and the distribution/efficiency of space within the hive structure.</p>
+                        </div>
+                        <div class="method-item">
+                            <h4>Dance Evaluation</h4>
+                            <p>Use computer vision and trajectory analysis to relate geometry to waggle accuracy, orientation, and communication efficiency.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="models" class="section">
+        <!-- Computational Methods (clean version) -->
+        <section id="methods" class="section">
             <div class="container">
-                <h2 class="section-title">Mathematical & Computational Models</h2>
-                <div class="models-grid">
-                    <div class="model-card">
-                        <h3>Voronoi Tesselations</h3>
+                <h2 class="section-title">Computational Methods</h2>
+                <div class="computational-methods">
+                    <p class="methods-intro">Core geometry and vision techniques used to analyze honeycomb structures and derive quantitative features for further study.</p>
+                    <div class="method-grid">
+                        <div class="method-item">
+                            <h4>Voronoi Tessellation</h4>
+                            <p>Reconstructs approximate cell boundaries from detected cell centers to study adjacency and shape.</p>
+                        </div>
+                        <div class="method-item">
+                            <h4>Delaunay Triangulation</h4>
+                            <p>Connects neighboring centers to evaluate uniformity and local structure constraints.</p>
+                        </div>
+                        <div class="method-item">
+                            <h4>Hough Transform</h4>
+                            <p>Detects dominant orientations and edge alignments relevant to wall directionality.</p>
+                        </div>
+                        <div class="method-item">
+                            <h4>Morphological Operations</h4>
+                            <p>Refines binary masks (open/close) to improve boundary quality before measurement.</p>
+                        </div>
                     </div>
-                    <div class="model-card">
-                        <h3>Delaunay Triangulation</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Findings (as per reference) -->
+        <section id="findings" class="section bg-light">
+            <div class="container">
+                <h2 class="section-title">Research Findings</h2>
+
+                <div class="findings-highlight">
+                    <h3>Dual-System Architecture Discovery</h3>
+                    <p class="lead">Honeycomb geometry and waggle dance communication interact through a sophisticated dual-system architecture where geometric features significantly influence dance site selection and communication quality while remaining independent from informational content.</p>
+                    <div class="metric-row">
+                        <span class="metric-label">Wall Length vs Dance Frequency:</span>
+                        <div class="metric-bar" aria-label="correlation strength">
+                            <div class="metric-fill" data-target-width="58%"></div>
+                        </div>
+                        <span class="metric-value">r = 0.576***</span>
                     </div>
-                    <div class="model-card">
-                        <h3>Geometric Optimization</h3>
+                </div>
+
+                <div class="findings-grid">
+                    <div class="finding-card">
+                        <h4>Communication Hub Cells</h4>
+                        <p>Only 42% of cells exhibited any dance activity, with extreme concentration in specific "communication hub" cells. Cell ID 9 alone accounted for 19.6% of all observed dances.</p>
+                        <div class="pill">42% active cells</div>
+                    </div>
+
+                    <div class="finding-card">
+                        <h4>Geometric Selectivity</h4>
+                        <p>Bees actively select irregular cells with longer walls (r = 0.576), lower circularity (r = -0.414), and fewer vertices for waggle dance performance.</p>
+                        <div class="pill">Irregular cells preferred</div>
+                    </div>
+
+                    <div class="finding-card">
+                        <h4>Directional Independence</h4>
+                        <p>Cell geometry showed no influence on dance directional encoding. Waggle angles displayed no correlation with cell tilt (r = 0.142, p = 0.428).</p>
+                        <div class="pill">External reference only</div>
+                    </div>
+
+                    <div class="finding-card">
+                        <h4>Architectural Trade-off</h4>
+                        <p>Regular hexagonal cells produce more efficient distance encoding despite hosting fewer dances, revealing a fundamental architectural paradox in hive design.</p>
+                        <div class="pill">Efficiency vs Frequency</div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BeeResearch</h3>
+                    <p>Advancing understanding of bee communication through mathematical and computational analysis.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Research Areas</h4>
+                    <ul>
+                        <li>Hexagonal Geometry</li>
+                        <li>Communication Theory</li>
+                        <li>Behavioral Analysis</li>
+                        <li>Mathematical Modeling</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li>Publications</li>
+                        <li>Data Sets</li>
+                        <li>Methodology</li>
+                        <li>Collaboration</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BeeResearch Project. Dedicated to understanding nature's mathematical principles.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
 </body>
+</html>
