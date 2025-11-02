@@ -40,7 +40,7 @@ html, body { overflow-x: hidden; }
 }
 
 .nav-container {
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 20px;
   display: flex;
@@ -115,7 +115,7 @@ html, body { overflow-x: hidden; }
 }
 
 .hero-container {
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 20px;
   display: grid;
@@ -208,12 +208,19 @@ html, body { overflow-x: hidden; }
 }
 
 /* Pixel bee animation */
+
 .bee-wrapper {
   position: absolute;
   left: -80px;
-  top: 120px;
+  top: var(--baseTop, 50%);
   z-index: 2;
-  animation: bee-flight 18s linear infinite;
+  /* Two animations: flight (transform) and vertical drift (top) */
+  animation-name: bee-flight, bee-drift;
+  animation-duration: var(--flightDur, 18s), var(--driftDur, 7s);
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  animation-direction: normal, alternate;
+  animation-delay: var(--flightDelay, 0s), var(--driftDelay, 0s);
   pointer-events: none;
 }
 
@@ -221,23 +228,19 @@ html, body { overflow-x: hidden; }
 .bee-rtl {
   left: auto;
   right: -80px;
-  animation-name: bee-flight-rtl;
+  animation-name: bee-flight-rtl, bee-drift;
 }
 
 /* flip inner sprite horizontally for RTL bees */
 .bee-rtl .bee-sprite { --sx: -1; }
 
 /* Right-to-left variant */
-.bee-rtl {
-  left: auto;
-  right: -80px;
-  animation-name: bee-flight-rtl;
-}
+/* (duplicate block removed and merged above) */
 
 .bee-sprite {
   width: 72px;
   height: auto;
-  animation: bee-buzz 0.5s ease-in-out infinite alternate;
+  animation: bee-buzz var(--buzzDur, 0.5s) ease-in-out infinite alternate;
   --sx: 1; /* scale flip for direction */
 }
 
@@ -245,7 +248,7 @@ html, body { overflow-x: hidden; }
 .bee-sprite .blk { fill: var(--dark-black); }
 .bee-sprite .yel { fill: var(--primary-yellow); }
 
-.bee-sprite .wing { animation: wing-flap 0.15s linear infinite alternate; transform-origin: 50% 50%; }
+.bee-sprite .wing { animation: wing-flap var(--wingDur, 0.15s) linear infinite alternate; transform-origin: 50% 50%; }
 
 @keyframes bee-flight {
   0%   { transform: translateX(-10vw) translateY(0) rotate(5deg); }
@@ -275,8 +278,14 @@ html, body { overflow-x: hidden; }
 }
 
 @keyframes bee-buzz {
-  from { transform: scaleX(var(--sx)) translateY(-2px); }
-  to   { transform: scaleX(var(--sx)) translateY(2px); }
+  from { transform: scaleX(var(--sx)) translateY(calc(var(--buzzAmp, 2px) * -1)); }
+  to   { transform: scaleX(var(--sx)) translateY(var(--buzzAmp, 2px)); }
+}
+
+/* Vertical drift around base top position (top property, not transform) */
+@keyframes bee-drift {
+  from { top: calc(var(--baseTop, 50%) - var(--driftAmp, 2%)); }
+  to   { top: calc(var(--baseTop, 50%) + var(--driftAmp, 2%)); }
 }
 
 @keyframes wing-flap {
@@ -359,7 +368,7 @@ html, body { overflow-x: hidden; }
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -409,6 +418,8 @@ html, body { overflow-x: hidden; }
   margin-bottom: 20px;
   font-size: 1.1rem;
   line-height: 1.7;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .feature-list {
@@ -478,6 +489,7 @@ html, body { overflow-x: hidden; }
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
   align-items: stretch;
+  justify-items: center; /* center cards inside their grid cells */
 }
 
 .finding-card {
@@ -491,11 +503,13 @@ html, body { overflow-x: hidden; }
   gap: 14px;
   min-height: 270px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center; /* center all inner text/content */
 }
 
 .finding-card h4 {
   color: var(--dark-black);
   font-size: 1.1rem;
+  text-align: center;
 }
 
 .finding-card p {
@@ -522,6 +536,10 @@ html, body { overflow-x: hidden; }
 
 @media (max-width: 1024px) {
   .findings-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  /* Methods: fall back to two columns on tablets */
+  .method-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -631,8 +649,13 @@ html, body { overflow-x: hidden; }
 
 .method-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 30px;
+}
+
+/* Keep Research Objectives as a 2x2 grid on desktop */
+.objectives-grid {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .method-item {

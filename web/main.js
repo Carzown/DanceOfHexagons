@@ -13,19 +13,61 @@ document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', 
     navMenu.classList.remove('active');
 }));
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+// Smooth scrolling for navigation links (duration scales with distance)
+(function initSmoothScrolling() {
+    const easeInOutCubic = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    function smoothScrollTo(toY, duration) {
+        const startY = window.pageYOffset || document.documentElement.scrollTop;
+        const distance = toY - startY;
+        const startTime = performance.now();
+
+        function step(now) {
+            const elapsed = now - startTime;
+            const t = Math.min(1, elapsed / duration);
+            const eased = easeInOutCubic(t);
+            window.scrollTo(0, startY + distance * eased);
+            if (t < 1) requestAnimationFrame(step);
         }
+        requestAnimationFrame(step);
+    }
+
+    function getOffsetTop(el) {
+        const rect = el.getBoundingClientRect();
+        return rect.top + window.pageYOffset;
+    }
+
+    function navHeight() {
+        const nav = document.querySelector('.navbar');
+        return (nav && nav.offsetHeight) ? nav.offsetHeight : 70;
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const hash = this.getAttribute('href');
+            const target = document.querySelector(hash);
+            if (!target) return; // let default if not found
+
+            e.preventDefault();
+
+            const offset = navHeight() + 8; // small breathing room
+            const targetY = Math.max(0, getOffsetTop(target) - offset);
+
+            // Duration scales with distance: 300ms..1200ms
+            const distance = Math.abs(window.pageYOffset - targetY);
+            const duration = Math.max(300, Math.min(1200, distance * 0.6));
+
+            smoothScrollTo(targetY, duration);
+
+            // Update URL without jumping
+            if (history.pushState) {
+                history.pushState(null, '', hash);
+            } else {
+                window.location.hash = hash;
+            }
+        });
     });
-});
+})();
 
 // Hero Hexagon Grid Animation
 function createHeroHexagons() {
@@ -50,6 +92,58 @@ function createHeroHexagons() {
         });
 
         grid.appendChild(hex);
+    }
+}
+
+// Random Bee Spawner
+function createRandomBees(count = 6) {
+    const hero = document.querySelector('#home');
+    if (!hero) return;
+
+    // Remove any existing bees to avoid duplicates
+    hero.querySelectorAll('.bee-wrapper').forEach(el => el.remove());
+
+    const rand = (min, max) => Math.random() * (max - min) + min;
+
+    for (let i = 0; i < count; i++) {
+        const rtl = Math.random() < 0.5;
+        const topPct = Math.round(rand(6, 92));
+        const duration = rand(18, 26).toFixed(1);
+        const delay = rand(0, 4).toFixed(2);
+        const driftDur = rand(5, 12).toFixed(1);
+        const driftDelay = rand(0, 2).toFixed(2);
+        const driftAmp = rand(0.5, 4).toFixed(1); // percent
+
+        const wrapper = document.createElement('div');
+    wrapper.className = 'bee-wrapper' + (rtl ? ' bee-rtl' : '');
+        wrapper.setAttribute('aria-hidden', 'true');
+    // Use CSS variables so multiple animations can have independent timings
+    wrapper.style.setProperty('--baseTop', `${topPct}%`);
+    wrapper.style.setProperty('--flightDur', `${duration}s`);
+    wrapper.style.setProperty('--flightDelay', `${delay}s`);
+    wrapper.style.setProperty('--driftDur', `${driftDur}s`);
+    wrapper.style.setProperty('--driftDelay', `${driftDelay}s`);
+    wrapper.style.setProperty('--driftAmp', `${driftAmp}%`);
+
+        wrapper.innerHTML = `
+            <svg class="bee-sprite" viewBox="0 0 16 12" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+                <rect class="wing" x="7" y="2" width="4" height="2"/>
+                <rect class="wing" x="6" y="3" width="3" height="1"/>
+                <rect class="yel" x="4" y="5" width="7" height="3"/>
+                <rect class="blk" x="5" y="5" width="1" height="3"/>
+                <rect class="blk" x="7" y="5" width="1" height="3"/>
+                <rect class="blk" x="9" y="5" width="1" height="3"/>
+                <polygon points="0,6 4,5.5 4,6.5" fill="#000"/>
+            </svg>
+        `;
+
+        const svg = wrapper.querySelector('svg');
+        // Randomize buzz amplitude/duration and wing flap speed per bee
+        svg.style.setProperty('--buzzAmp', `${rand(1.5, 3.5).toFixed(1)}px`);
+        svg.style.setProperty('--buzzDur', `${rand(0.35, 0.6).toFixed(2)}s`);
+        svg.style.setProperty('--wingDur', `${rand(0.12, 0.22).toFixed(2)}s`);
+
+        hero.appendChild(wrapper);
     }
 }
 
@@ -129,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initInteractiveHexagon();
     initScrollAnimations();
     initNavbarScroll();
+    createRandomBees(6);
     // Animate findings metric bar when visible
     const metricFill = document.querySelector('.metric-fill');
     if (metricFill) {
@@ -148,8 +243,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Resize handler for responsive adjustments
 window.addEventListener('resize', () => {
-    // Reinitialize hero hexagons on resize
+    // Reinitialize hero hexagons on resize (safe no-op since grid removed)
     createHeroHexagons();
+    // Do NOT respawn bees on resize to avoid resetting randomness during zoom
 });
 
 // Performance optimization: Throttle scroll events
