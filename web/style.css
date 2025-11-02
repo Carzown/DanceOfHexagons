@@ -653,6 +653,35 @@ html, body { overflow-x: hidden; }
   gap: 30px;
 }
 
+/* Methodology section: stack cards vertically (one per row) on all screen sizes */
+#methodology .method-grid {
+  grid-template-columns: 1fr;
+}
+
+/* Alternate methodology cards: left (odd) then right (even) with matching highlight side */
+#methodology .method-item {
+  width: min(100%, 820px);
+}
+
+#methodology .method-item:nth-child(odd) {
+  justify-self: start;
+  border-left: 4px solid var(--primary-yellow);
+  border-right: none;
+}
+
+#methodology .method-item:nth-child(even) {
+  justify-self: end;
+  border-right: 4px solid var(--primary-yellow);
+  border-left: none;
+}
+
+/* On very small screens, full width is fine; alignment remains for subtle stagger */
+@media (max-width: 600px) {
+  #methodology .method-item {
+    width: 100%;
+  }
+}
+
 /* Keep Research Objectives as a 2x2 grid on desktop */
 .objectives-grid {
   grid-template-columns: repeat(2, 1fr);
