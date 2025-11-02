@@ -15,8 +15,8 @@
             <ul class="nav-menu">
                 <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="#geometry" class="nav-link">Background</a></li>
-                <li class="nav-item"><a href="#methods" class="nav-link">Computational Methods</a></li>
                 <li class="nav-item"><a href="#objectives" class="nav-link">Research Objectives</a></li>
+                <li class="nav-item"><a href="#methods" class="nav-link">Computational Methods</a></li>
                 <li class="nav-item"><a href="#methodology" class="nav-link">Methodology</a></li>
                 <li class="nav-item"><a href="#findings" class="nav-link">Research Findings</a></li>
             </ul>
@@ -121,19 +121,53 @@
                     <div class="method-grid">
                         <div class="method-item">
                             <h4>Data Collection</h4>
+                            <img src="assets/honeycomb_detection.jpg" alt="Honeycomb cell detection example" class="method-image"/>
                             <p>High-resolution images of honeycomb structures were captured using digital photography. Waggle dance behaviors were recorded and analyzed through video observation, tracking dance frequency, duration, and spatial positioning within specific cells.</p>
                         </div>
                         <div class="method-item">
+                            <h4>Video and Image Preprocessing</h4>
+                            <p>The honeycomb image underwent several preprocessing steps to enhance quality and prepare it for geometric analysis. The image was first enhanced in resolution and contrast to improve cell boundary visibility. Noise reduction and edge detection techniques were applied to isolate individual hexagonal cells accurately. The resulting processed image was then analyzed using Voronoi tessellation and Delaunay triangulation to extract quantitative geometric features such as uniformity, connectivity, and spatial efficiency.</p>
+                            <img src="assets/image_Processing.jpg" alt="Data processing example" class="method-image method-image--short"/>
+                            <p>For the waggle dance video, frames were extracted and converted to grayscale to optimize feature detection. The Biorobotics Waggle Dance Tracker automatically identified dancing bees, segmented individual waggle runs, and generated data on trajectory angles, run durations, and orientation stability. These outputs were later aligned with the geometric metrics of the honeycomb to explore potential correlations between hive geometry and bee communication behavior.</p>
+                            <img src="assets/Video_Processing.png" alt="Video processing example" class="method-image method-image--short"/>    
+                        </div>
+                        <div class="method-item">
+                            <h4>Waggle Dance Tracking and Analysis</h4>
+                            <p>The waggle dance behavior of honeybees was analyzed using the Biorobotics Waggle Dance Detection System, an open-source tracking framework designed for automated identification and measurement of bee communication patterns. The system processed video recordings of foraging bees performing waggle dances, detecting individual waggle runs and extracting key behavioral parameters such as trajectory coordinates, dance angles, run durations, and orientation clusters.</p>
+                            <br>    
+                            <p>The resulting behavioral data were correlated with geometric parameters of the honeycomb, including cell alignment, angular deviation, and spatial uniformity. This analysis aimed to determine whether geometric distortions or irregularities in the honeycomb’s hexagonal structure influenced the bees’ ability to maintain consistent waggle orientations and accurate spatial communication within the hive.</p>
+
+                        </div>
+                        <div class="method-item" id="geometric-analysis">
                             <h4>Geometric Analysis</h4>
                             <p>Cell boundaries were reconstructed using Voronoi tessellation from detected centers. Delaunay triangulation created adjacency networks to assess pattern uniformity. Geometric optimization theory evaluated efficiency through perimeter-to-area ratios.</p>
+                            <ul>
+                                <li><strong>Voronoi Tessellation</strong> – applied to reconstruct honeycomb cell boundaries from the detected centers. This method analyzes the spatial distribution of cell centers and ensures that the arrangement achieves complete plane coverage without gaps or overlaps.
+                                    <img src="assets/Voronoi.png" alt="Voronoi tessellation example" class="method-image method-image--short" />
+                                </li>
+                                <li><strong>Delaunay Triangulation</strong> – implemented to connect nearby cell centers, forming a geometric network that represents adjacency between cells. This connectivity structure is then used to detect irregularities and assess the overall uniformity of the honeycomb pattern.
+                                    <img src="assets/Delaunay.png" alt="Delaunay triangulation example" class="method-image method-image--short" />
+                                </li>
+                                <li><strong>Geometric Optimization Theory</strong> – applied to evaluate efficiency in terms of perimeter-to-area ratios, identifying how hexagonal structures minimize wax use while maximizing honey storage.
+                                    <img src="assets/Geometric.png" alt="Geometric optimization illustration" class="method-image method-image--short" />
+                                </li>
+                            </ul>
+                            <p>From these geometric models, cell parameters such as area, perimeter, tilt degree, and mean interior angle were computed and stored in CSV files.</p>
+                       
                         </div>
                         <div class="method-item">
                             <h4>Statistical Analysis</h4>
+                            <img src="assets/Cell_Geometry_Independence.png" alt="Cell_Geometry_Independence" class="method-image"/>
                             <p>Correlation analysis examined relationships between geometric parameters and dance frequency. ANOVA tests compared directional encoding across cell types. Statistical significance was set at p < 0.05 for all analyses.</p>
+                            <ul>
+                                <li>Bees don’t use hive geometry to encode direction. Waggle angles show no correlation with cell tilt (r = 0.142, p = 0.428), indicating orientation isn’t adjusted to cell alignment.</li>
+                                <li>Dance orientation is consistent across cell regularity types (one-way ANOVA: F = 0.873, p = 0.427), confirming bees rely on external cues (gravity/sun proxy) rather than internal comb structure.</li>
+                            </ul>   
                         </div>
                         <div class="method-item">
                             <h4>Data Processing</h4>
                             <p>Computer vision algorithms processed honeycomb images to extract cell parameters including wall length, circularity, vertex count, and cell tilt. Dance trajectories were analyzed using vector analysis to determine directional accuracy.</p>
+                            
                         </div>
                     </div>
                 </div>
@@ -186,37 +220,8 @@
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>BeeResearch</h3>
-                    <p>Advancing understanding of bee communication through mathematical and computational analysis.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Research Areas</h4>
-                    <ul>
-                        <li>Hexagonal Geometry</li>
-                        <li>Communication Theory</li>
-                        <li>Behavioral Analysis</li>
-                        <li>Mathematical Modeling</li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li>Publications</li>
-                        <li>Data Sets</li>
-                        <li>Methodology</li>
-                        <li>Collaboration</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 BeeResearch Project. Dedicated to understanding nature's mathematical principles.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- Minimal, empty footer bar for spacing/future use -->
+    <footer class="minimal-footer" aria-hidden="true"></footer>
 
     <script src="main.js"></script>
 </body>

@@ -675,6 +675,51 @@ html, body { overflow-x: hidden; }
   border-left: none;
 }
 
+/* Methodology image styling */
+#methodology .method-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px var(--shadow-color);
+  margin-bottom: 16px;
+  background: var(--off-white);
+}
+
+/* Shorter, clearer variant used for Data Processing image */
+#methodology .method-image--short {
+  height: 220px;           /* make it visibly shorter */
+  width: auto;             /* avoid unnecessary upscaling that can blur */
+  max-width: 100%;         /* never overflow the card */
+  object-fit: contain;     /* keep full image visible within the set height */
+  object-position: center; /* center it nicely */
+  margin: 0 auto 12px auto;/* center horizontally and tighten spacing */
+  border: 1px solid var(--border-gray); /* subtle edge for perceived sharpness */
+  background: var(--pure-white);        /* neutral background for clarity */
+}
+
+/* Make images in the Geometric Analysis card a bit shorter without affecting others */
+#geometric-analysis .method-image--short {
+  height: 180px;
+}
+
+/* Generic list formatting and spacing for main content (does not affect nav/footer) */
+main ul {
+  list-style: disc;           /* standard bullets */
+  margin: 12px 0 16px 1.25rem;/* outer spacing and left indent */
+  padding-left: 0;            /* rely on margin for indent */
+}
+
+main ul li {
+  margin: 6px 0;              /* vertical spacing between items */
+  line-height: 1.7;           /* improve readability on wrap */
+}
+
+/* Add vertical spacing between consecutive paragraphs within methodology cards */
+#methodology .method-item p + p {
+  margin-top: 14px;
+}
+
 /* On very small screens, full width is fine; alignment remains for subtle stagger */
 @media (max-width: 600px) {
   #methodology .method-item {
@@ -761,6 +806,15 @@ html, body { overflow-x: hidden; }
   border-top: 1px solid var(--border-gray);
   padding-top: 20px;
   text-align: center;
+}
+
+/* Minimal empty footer bar (no content, very slim) */
+.minimal-footer {
+  height: 16px;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  border: none;
 }
 
 /* Responsive Design */
