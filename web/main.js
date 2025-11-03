@@ -224,6 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initNavbarScroll();
     createRandomBees(6);
+    initWaggleCards();
     // Animate findings metric bar when visible
     const metricFill = document.querySelector('.metric-fill');
     if (metricFill) {
@@ -265,3 +266,25 @@ function throttle(func, wait) {
 window.addEventListener('scroll', throttle(() => {
     // Any additional scroll-based functionality
 }, 16)); // ~60fps
+
+// Initialize horizontal card interactions for Spatial Distribution
+function initWaggleCards() {
+    const track = document.querySelector('#waggle-distribution-scroll .hscroll-track');
+    if (!track) return;
+
+    track.addEventListener('click', (e) => {
+        const card = e.target.closest('.hscroll-card');
+        if (!card) return;
+        const rect = card.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const leftHalf = clickX < rect.width / 2;
+        const cls = leftHalf ? 'rotate-left' : 'rotate-right';
+        card.classList.remove('rotate-left', 'rotate-right');
+        // trigger reflow to restart animation
+        void card.offsetWidth;
+        card.classList.add(cls);
+        setTimeout(() => {
+            card.classList.remove('rotate-left', 'rotate-right');
+        }, 400);
+    });
+}

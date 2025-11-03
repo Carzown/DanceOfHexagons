@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="hero-visual">
-                    <img src="hero_ image.jpg" alt="Honeycomb research hero" class="hero-image"/>
+                    <img src="assets/hero_ image.jpg" alt="Honeycomb research hero" class="hero-image"/>
                 </div>
             </div>
             <!-- Bees are injected dynamically via JavaScript for random positions, directions, and timings -->
@@ -126,10 +126,15 @@
                         </div>
                         <div class="method-item">
                             <h4>Video and Image Preprocessing</h4>
+                            <video class="method-image" controls preload="metadata">
+                                <source src="assets/BeeCut.mp4" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
                             <p>The honeycomb image underwent several preprocessing steps to enhance quality and prepare it for geometric analysis. The image was first enhanced in resolution and contrast to improve cell boundary visibility. Noise reduction and edge detection techniques were applied to isolate individual hexagonal cells accurately. The resulting processed image was then analyzed using Voronoi tessellation and Delaunay triangulation to extract quantitative geometric features such as uniformity, connectivity, and spatial efficiency.</p>
                             <img src="assets/image_Processing.jpg" alt="Data processing example" class="method-image method-image--short"/>
                             <p>For the waggle dance video, frames were extracted and converted to grayscale to optimize feature detection. The Biorobotics Waggle Dance Tracker automatically identified dancing bees, segmented individual waggle runs, and generated data on trajectory angles, run durations, and orientation stability. These outputs were later aligned with the geometric metrics of the honeycomb to explore potential correlations between hive geometry and bee communication behavior.</p>
-                            <img src="assets/Video_Processing.png" alt="Video processing example" class="method-image method-image--short"/>    
+                            <img src="assets/Video_Processing.png" alt="Video processing example" class="method-image method-image--short"/> 
+                            
                         </div>
                         <div class="method-item">
                             <h4>Waggle Dance Tracking and Analysis</h4>
@@ -156,18 +161,106 @@
                        
                         </div>
                         <div class="method-item">
-                            <h4>Statistical Analysis</h4>
-                            <img src="assets/Cell_Geometry_Independence.png" alt="Cell_Geometry_Independence" class="method-image"/>
-                            <p>Correlation analysis examined relationships between geometric parameters and dance frequency. ANOVA tests compared directional encoding across cell types. Statistical significance was set at p < 0.05 for all analyses.</p>
-                            <ul>
-                                <li>Bees don’t use hive geometry to encode direction. Waggle angles show no correlation with cell tilt (r = 0.142, p = 0.428), indicating orientation isn’t adjusted to cell alignment.</li>
-                                <li>Dance orientation is consistent across cell regularity types (one-way ANOVA: F = 0.873, p = 0.427), confirming bees rely on external cues (gravity/sun proxy) rather than internal comb structure.</li>
-                            </ul>   
+                            <h4>Geometric Feature Extraction</h4>
+                            <br>
+                            <h5>Voronoi Tessellation</h5>
+                            <br>
+                                <img src="assets/Honeycomb_Construction1.png" alt="Honeycomb construction step 1 (sites and seeds)" class="method-image method-image--short" />   
+                            <p>The Voronoi tessellation divides the honeycomb plane into regions centered on each cell, illustrating how bees optimize space utilization with minimal gaps. Slight irregularities were observed at the honeycomb’s periphery, possibly due to wax deformation during construction or natural hive adjustments.</p>
+                                <img src="assets/Honeycomb_Construction2.png" alt="Honeycomb construction step 2 (cells and edges)" class="method-image method-image--short method-image--taller" />
+                            <br>
+                            <h5>Delaunay Triangulation</h5>
+                            <p>Delaunay triangulation emphasizes intercellular connectivity. Most triangles exhibit near-equilateral geometry, indicating consistent spacing and alignment among cells. Deviations in the triangulation correspond to zones where waggle dances were frequently performed, suggesting a behavioral influence on geometric irregularities.</p>
+                                <img src="assets/Delaunay_Triangulation.png" alt="Delaunay triangulation illustration" class="method-image method-image--short" />   
+                            <p>The figure illustrates the Delaunay triangulation constructed from the geometric centers of honeycomb cells. Each yellow line represents a Delaunay edge connecting two neighboring cell centers such that no other center lies inside the circumcircle of any triangle. This creates a network of triangles that efficiently captures the local geometric relationships and spatial uniformity of the honeycomb structure.</p>
+                            <br>
+                            <h5>Geometric Optimization</h5>
+                            <br>
+                                <img src="assets/Geometric_Optimization_Analysis.png" alt="Geometric optimization illustration" class="method-image method-image--short" />
+                            <p>The analysis reveals that the mean perimeter-to-area ratio (R = 14.06) of the observed honeycomb cells is lower than the ideal hexagon value (R = 20.78), indicating that the real cells exhibit slightly more compact geometries, possibly due to natural wax deformation or cell merging during construction.</p>
+
                         </div>
-                        <div class="method-item">
-                            <h4>Data Processing</h4>
-                            <p>Computer vision algorithms processed honeycomb images to extract cell parameters including wall length, circularity, vertex count, and cell tilt. Dance trajectories were analyzed using vector analysis to determine directional accuracy.</p>
+                        <div class="method-item align-right">
+                            <h4>Waggle Dance and Geometric Analysis Correlation</h4>
+                            <p>To quantify the relationship between honeybee waggle dance activity and honeycomb cell geometry, we employed two complementary correlation analysis methods: Pearson's product-moment correlation coefficient and Spearman's rank correlation coefficient.</p>
+                            <br> 
+                            <p><strong>Pearson correlation (r)</strong> was used to assess linear relationships between continuous variables, measuring the strength and direction of association between waggle dance metrics (count, duration, angle) and geometric features (wall length, vertices, circularity, area, perimeter). This parametric test assumes normally distributed data and is sensitive to extreme outliers, making it ideal for detecting strong linear trends in our dataset.</p>
+                            <br>
+                            <p><strong>Spearman correlation (p)</strong> was applied as a non-parametric alternative to validate findings independent of distribution assumptions. By analyzing rank-ordered data rather than raw values, Spearman's method provides robustness against outliers and detects monotonic (but not necessarily linear) relationships. Convergence between Pearson and Spearman results strengthens confidence in observed patterns. </p>
+                            <br>
+                            <p>Significance thresholds were set at α = 0.05 (p < 0.05), α = 0.01 (p < 0.01), and α = 0.001 (p < 0.001), denoted as *, **, and *** respectively. All analyses were performed on aggregated cell-level data (n = 35 cells with waggle activity) derived from 240 individual waggle dance observations across 83 honeycomb cells.</p>  
+                        </div>
+                        <div class="method-item align-left">
+                            <h4>Spatial Distribution of Waggle Dance Activity</h4>
+                            <p>Initial examination revealed highly non-random spatial organization of waggle dance behavior within the hive. Of the 83 cells analyzed, only 35 cells (42.2%) exhibited any waggle dance activity, indicating strong spatial selectivity. The distribution of dance events per cell was markedly right-skewed (skewness = 3.87), with a median of 3 waggles per active cell but a maximum of 47 waggles in a single cell (Cell ID 9). This extreme outlier alone accounted for 19.6% of all observed waggle dances, suggesting the existence of specialized "communication hub" cells within the hive architecture.</p>
+                            <br>
+                            <p>The figure below demonstrates a robust positive correlation between cell wall length and waggle dance frequency, representing the strongest relationship identified in this study. Statistical analysis revealed:</p>
+                            <ul>
+                                <li><strong>Pearson correlation:</strong> r = 0.576, p &lt; 0.001 (highly significant) </li>
+                                <li><strong>Spearman correlation:</strong> ρ = 0.457, p = 0.006 (significant) </li>
+                                <li><strong>Sample size:</strong> n = 35 active cells</li>
+                            </ul>
+                            <img src="assets/Correlation_Results.png" alt="Correlation results between wall length and dance frequency" class="method-image method-image--original"/>
+                            <p> Bees actively select cells with substantial, well-defined boundaries for waggle dance communication. Larger walls likely provide enhanced tactile feedback during the figure-8 dance pattern, greater structural stability for rapid body oscillations (13-15 Hz), and improved acoustic coupling for substrate-borne vibrations that recruits perceive. The consistency between Pearson and Spearman correlations confirms this relationship holds across the full data range and is not driven solely by outliers.</p>
                             
+                        </div>
+                        <!-- Additional methodology cards begin -->
+                        <div class="method-item align-right">
+                            <h4>Circularity Suppresses Waggle Dance Activity in Honeycomb Cells</h4>
+                            <p>This illustrates a significant negative relationship between cell circularity (a measure of how closely a shape approximates a perfect circle) and waggle dance activity:</p>
+                            <ul>
+                                <li><strong>Pearson correlation:</strong> r = -0.432, p = 0.014 (significant)</li>
+                                <li><strong>Spearman correlation:</strong> ρ = -0.218, p = 0.209 (not significant)</li>
+                            </ul>
+                            <p>The discrepancy between Pearson (significant) and Spearman (non-significant) suggests the relationship is more linear than monotonic, with potential influence from outliers. The color gradient (red = high circularity, green = low circularity) reveals spatial clustering:</p>
+                            <ul>
+                                <li><strong>Irregular cells</strong> (circularity 0.30-0.50, green zone): Concentrated high-activity cells (10-47 waggles), mean = 9.1 waggles</li>
+                                <li><strong>Circular cells</strong> (circularity 0.85-0.95, red zone): Lower activity cells (0-5 waggles), mean = 2.3 waggles</li>
+                            </ul>
+                            <img src="assets/Bees_Avoid.png" alt="Correlation results between circularity and dance frequency" class="method-image method-image--original"/>
+                            <p>Circular geometry lacks directional reference features essential for waggle dance communication. The dance encodes vector information (distance and direction to food sources) through body angle and duration, requiring dancers to establish and maintain precise spatial orientation. </p>
+
+                        </div>
+                        <div class="method-item align-left">
+                            <h4>Waggle Dance Count vs. Number of Cell Vertices</h4>
+                            <p>The violin plot reveals a striking inverse relationship between geometric regularity and waggle dance activity. Irregular 3-vertex cells exhibited the highest median dance frequency (approximately 11 waggles) with extreme variance ranging from 0 to 47 waggles, including the outlier Cell ID 9 which alone accounted for 19.6% of all observed dances. Cells with 4 vertices showed intermediate behavior with a median of 9 waggles and moderate variance, while regular 6-vertex hexagons—the geometrically optimal structure for storage—showed the lowest activity with a median of only 3 waggles and minimal variance. This pattern demonstrates that the very geometry optimizing structural efficiency is least preferred for communication, revealing a fundamental architectural paradox in hive design.</p>
+                            <br>
+                            <img src="assets/Waggle_Dance_Count_vs._Number_of_Cell_Vertices.png" alt="Violin plot of waggle dance count vs. number of cell vertices" class="method-image method-image--original"/>    
+                            <p>This non-linear relationship integrates seamlessly with earlier findings, as 3-vertex cells naturally possess the longer wall lengths (r=0.576, p<0.001) and lower circularity (r=-0.414, p=0.014) independently identified as predictors of dance activity. The extreme variance in 3-vertex cells compared to the compressed distribution in hexagonal cells suggests that geometric irregularity creates behavioral heterogeneity, where some irregular cells become critical communication hubs while others remain unused. These findings indicate that honeybees maintain dual optimization systems: hexagonal cells (representing approximately 83% of the structure) minimize wax and maximize storage, while strategically positioned irregular cells provide superior dance surfaces through enhanced tactile feedback, spatial reference points, or acoustic properties for substrate-borne vibrations.</p>
+                        </div>
+                        <div class="method-item align-right">
+                            <h4>Geometric Influence on Waggle Dance Communication Accuracy</h4>
+                            <img src="assets/Geometric_Influence.png" alt="Geometric influence on waggle dance communication accuracy" class="method-image method-image--original"/>
+                            <br>
+                            <p>Honeycomb geometry shapes waggle-dance precision: longer cell walls are linked to lower angular variability (r = −0.524, p = 0.002), suggesting boundary cues improve orientation consistency. In contrast, 3‑vertex irregular cells, though popular for dancing, show higher angular variance than 6‑vertex hexagons (0.42 vs 0.28 rad; Kruskal–Wallis p = 0.018), and lower circularity correlates with greater inconsistency (r = −0.385, p = 0.024). Overall, features that attract dances (irregular, low-circularity cells) tend to degrade signal precision, while extended walls enhance accuracy—highlighting a trade‑off between site popularity and communication fidelity.</p>
+                        </div>
+                        <div class="method-item align-left">
+                            <h4>Cell Geometry Independence from Dance Orientation</h4>
+                            <img src="assets/Cell_Geometry_Independence.png" alt="Cell geometry independence" class="method-image method-image--original"/>
+                            <p>Bees do not use internal hive geometry to encode dance direction. Panel A shows no link between cell tilt and waggle angle (r = 0.142, p = 0.428), and Panel B finds no orientation differences across cell regularity categories (ANOVA F = 0.873, p = 0.427). This supports a dual-system model: comb geometry influences where bees dance and how precise they are, but the directional information references external cues (gravity/sun), not cell structure.</p>
+                        </div>
+                        <div class="method-item align-right">
+                            <h4>Geometric Effects on Communication Efficiency</h4>
+                            <img src="assets/Duration_Efficiency.png" alt="Duration efficiency illustration" class="method-image method-image--original"/>
+                            <p>This analysis evaluates whether geometric features affect the consistency of distance encoding by examining duration coefficient of variation (CV), where lower values indicate more efficient signal transmission. Panel A reveals a moderate negative correlation between wall length and duration variability (r = -0.361, p = 0.035), suggesting that cells with longer boundaries enable bees to perform more consistent waggle runs when encoding distance information. This finding parallels the angular consistency results, indicating that extended walls provide a stabilizing architectural feature for multiple aspects of the dance beyond just spatial reference. Panel B demonstrates significant differences in duration consistency across vertex categories (Kruskal-Wallis H = 6.847, p = 0.033), with 6-vertex hexagons showing the lowest coefficient of variation (median CV = 0.18) compared to 3-vertex cells (median CV = 0.29). </p>
+                            <br>
+                            <p>This represents a reversal of the pattern observed for dance frequency: while irregular cells are preferred locations, regular hexagonal cells produce more efficient distance encoding despite hosting fewer dances. The contrast between location preference and signal quality suggests that bees face an architectural trade-off—irregular cells offer favorable structural features (longer walls, non-circular shapes) that attract dancers, but regular hexagons provide superior communication efficiency when dances do occur, possibly due to their uniform geometry reducing variability in movement execution or their compact shape facilitating consistent substrate-borne vibration transmission to recruit bees.</p>
+                        </div>
+                        <div class="method-item align-left">
+                            <h4>Comprehensive Overview of Cell Geometry Effects on Waggle Dance Activity</h4>
+                            <img src="assets/Overview_Cell_Geometry.png" alt="Comprehensive overview of cell geometry effects on waggle dance activity" class="method-image method-image--original"/>
+                            <br>
+                            <h5><strong>(A) Wall Size Effect</strong></h5>
+                            <p>The strongest observed relationship (r = 0.576***) is reconfirmed with scatter density concentrated in two zones: low-activity cells with short walls (70-85px, 0-5 waggles) and a gradient of increasing activity with wall length up to the maximum (106px, 47 waggles). The regression line's steep positive slope demonstrates the proportional nature of this relationship.</p>
+                            <br>
+                            <h5><strong>(B) Shape Complexity</strong></h5>
+                            <p>Overlaying scatter points on box plots reveals the quartile distributions within each vertex category. The 3-vertex boxplot shows median = 11 waggles with upper whisker extending to 47, while the 6-vertex boxplot shows median = 3 with compressed interquartile range. This visualization emphasizes both central tendency differences and variance heterogeneity across groups.</p>
+                            <br>
+                            <h5><strong>(C) Shape Regularity</strong></h5>
+                            <p>The negative slope (r = -0.414*) is evident, though data spread increases at low circularity values (0.3-0.5), suggesting that while irregular cells are necessary for high activity, they are not sufficient, additional factors also contribute. Several irregular cells (circularity < 0.4) still show zero activity, indicating geometry is one of multiple selection criteria.</p>
+                            <br>
+                            <h5><strong>(D) Cell Size</strong></h5>
+                            <p>A weak negative correlation (r = -0.379*) shows moderate dispersion around the regression line. The relationship appears non-linear, with activity plateauing for cells exceeding 15,000 px² area. This suggests an optimal size range exists, cells must be large enough to accommodate dancing but not so expansive as to lack boundaries.</p>
                         </div>
                     </div>
                 </div>
@@ -219,9 +312,6 @@
             </div>
         </section>
     </main>
-
-    <!-- Minimal, empty footer bar for spacing/future use -->
-    <footer class="minimal-footer" aria-hidden="true"></footer>
 
     <script src="main.js"></script>
 </body>

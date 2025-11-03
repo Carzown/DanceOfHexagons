@@ -675,6 +675,19 @@ html, body { overflow-x: hidden; }
   border-left: none;
 }
 
+/* Explicit alignment overrides to preserve card positions when inserting new items */
+#methodology .method-item.align-right {
+  justify-self: end;
+  border-right: 4px solid var(--primary-yellow);
+  border-left: none;
+}
+
+#methodology .method-item.align-left {
+  justify-self: start;
+  border-left: 4px solid var(--primary-yellow);
+  border-right: none;
+}
+
 /* Methodology image styling */
 #methodology .method-image {
   width: 100%;
@@ -698,9 +711,65 @@ html, body { overflow-x: hidden; }
   background: var(--pure-white);        /* neutral background for clarity */
 }
 
+/* Natural-size media variant: use intrinsic dimensions, centered, not stretched */
+#methodology .method-image--original {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto 12px auto; /* center horizontally */
+  object-fit: contain;
+  object-position: center;
+  border: 1px solid var(--border-gray);
+  background: var(--pure-white);
+}
+
+/* Slightly larger variant used specifically for Honeycomb_Construction2 */
+#methodology .method-image--taller {
+  height: 300px; /* increase further for better visibility */
+}
+
 /* Make images in the Geometric Analysis card a bit shorter without affecting others */
 #geometric-analysis .method-image--short {
   height: 180px;
+}
+
+/* Side-by-side helper for paired images inside Geometric Analysis */
+#geometric-analysis .image-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#geometric-analysis .image-row .method-image--short {
+  width: 100%;
+  height: 180px;
+}
+
+@media (max-width: 700px) {
+  #geometric-analysis .image-row {
+    flex-direction: column;
+  }
+}
+
+/* Generic image-row inside Methodology: show images side-by-side */
+#methodology .image-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#methodology .image-row .method-image--short {
+  width: 100%;
+  height: 180px; /* keep consistent with geometric-analysis visuals */
+}
+
+@media (max-width: 700px) {
+  #methodology .image-row { flex-direction: column; }
 }
 
 /* Generic list formatting and spacing for main content (does not affect nav/footer) */
