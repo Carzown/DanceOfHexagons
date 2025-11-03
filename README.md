@@ -1,1 +1,2 @@
-# bee_geometry_project
+# Dance of Hexagons
+A math investigatory project
